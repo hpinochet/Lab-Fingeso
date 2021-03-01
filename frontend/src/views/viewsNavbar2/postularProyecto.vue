@@ -21,14 +21,7 @@
             required
           ></v-textarea>
         </v-col>
-         <v-col id="responsable">
-            <v-text-field
-                v-model="responsable"
-                :rules="resRules"
-                label="responsable"
-                required
-            ></v-text-field>
-        </v-col>
+
         <!--Ingresar los objetivos -->
         <v-col id="rectangulo1" background-color="grey lighten-2">
           <h1>Objetivos</h1>
