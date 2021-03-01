@@ -104,7 +104,7 @@
             v-bind:disabled="rt"
         ></v-textarea>
       </v-col>
-      <!-- Botone de Postular-->
+      <!-- Boton de Postular-->
       <v-col>
           <v-btn
               class=" ma-auto ml-5 "

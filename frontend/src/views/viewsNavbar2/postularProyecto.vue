@@ -21,7 +21,21 @@
             required
           ></v-textarea>
         </v-col>
-
+        <!--Ingresar los objetivos -->
+        <v-col id="rectangulo1" background-color="grey lighten-2">
+          <h1>Descripcion de empresa</h1>
+        </v-col>
+        <v-col>
+          <v-textarea
+            v-model="objetivos"
+            :rules="objRules"
+            solo
+            no-resize
+            name="input-7-4"
+            label="Ingrese una breve descripcion de la empresa..."
+            required
+          ></v-textarea>
+        </v-col>
         <!--Ingresar los objetivos -->
         <v-col id="rectangulo1" background-color="grey lighten-2">
           <h1>Objetivos</h1>
@@ -51,6 +65,32 @@
             label="Ingrese los alcances del proyecto..."
             required
           ></v-textarea>
+        </v-col>
+        <!--plan del proyecto-->
+        <v-col id="rectangulo1" background-color="grey lighten-2">
+          <h1>Plan de trabajo</h1>
+        </v-col>
+        <v-col>
+          <v-textarea
+            v-model="alcances"
+            :rules="alcRules"
+            solo
+            no-resize
+            name="input-7-4"
+            label="Ingrese el plan de trabajo propueso..."
+            required
+          ></v-textarea>
+        </v-col>
+        <!-- Boton de Postular-->
+        <v-col>
+            <v-btn
+                class=" ma-auto ml-5 "
+                color = "success"
+                width ="150"
+                @click="submit"
+                >
+                Postular.
+            </v-btn>
         </v-col>
       </v-col>
   </v-container>
