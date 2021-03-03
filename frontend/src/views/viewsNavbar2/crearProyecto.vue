@@ -11,7 +11,7 @@
           <v-text-field
               single-line
               solo
-              v-model="titulo"
+              v-model="newProyect.nombreProyecto"
               :rules="titRules"
               label="Nombre del proyecto..."
               required
@@ -23,7 +23,7 @@
       </v-col>
       <v-col>
         <v-textarea
-          v-model="responsable"
+          v-model="newProyect.responsable"
           :rules="resRules"
           solo
           no-resize
@@ -38,7 +38,7 @@
       </v-col>
       <v-col>
         <v-textarea
-          v-model="objetivos"
+          v-model="newProyect.objetivos"
           :rules="objRules"
           solo
           no-resize
@@ -52,13 +52,25 @@
       </v-col>
       <v-col>
         <v-textarea
-          v-model="alcances"
+          v-model="newProyect.alcance"
           :rules="alcRules"
           solo
           no-resize
           name="input-7-4"
           label="Ingrese los alcances del proyecto..."
         ></v-textarea>
+      </v-col>
+      <!--Criterios de evaluacion-->
+      <v-col id="rectangulo1" background-color="grey lighten-2">
+        <h1>Criterios de evaluacion</h1>
+      </v-col>
+      <v-col id="duracion">
+          <v-text-field
+              single-line
+              solo
+              v-model="newProyect.criteriosEvaluacion"
+              label="Criterios..."
+          ></v-text-field>
       </v-col>
       <!--Duracion del proyecto-->
       <v-col id="rectangulo1" background-color="grey lighten-2">
@@ -68,7 +80,7 @@
           <v-text-field
               single-line
               solo
-              v-model="duracion"
+              v-model="newProyect.duracionEstimada"
               :rules="durRules"
               label="Duración del proyecto..."
           ></v-text-field>
@@ -79,7 +91,7 @@
       </v-col>
       <v-col>
         <v-textarea
-          v-model="rf"
+          v-model="newProyect.requisitosFuncionales"
           :rules="rfRules"
           solo
           name="input-7-4"
@@ -92,7 +104,7 @@
       </v-col>
       <v-col>
         <v-textarea
-          v-model="rt"
+          v-model="newProyect.requisitosTecnicos"
           :rules="rtRules"
           solo
           name="input-7-4"
@@ -105,7 +117,7 @@
               class=" ma-auto "
               color = "primary"
               width ="100"
-              @click="submit"
+              @click="send"
               >
               Guardar.
           </v-btn>
@@ -113,10 +125,13 @@
               class=" ma-auto ml-5 "
               color = "success"
               width ="150"
-              @click="submit"
+              @click="publicar"
               >
               Publicar.
           </v-btn>
+          <p class="message"> 
+          {{message}} 
+        </p>
       </v-col>
     </v-col>
   </v-container>
@@ -151,8 +166,47 @@ export default {
         rt:'',
         rtRules: [
           v => !!v || 'Requesitos Técnicos requeridos.',
-          v => (v || '' ).length <= 1000 || 'Requesitos Técnicos debe tener menos de 1000 caracteres.']
-    })
+          v => (v || '' ).length <= 1000 || 'Requesitos Técnicos debe tener menos de 1000 caracteres.'], 
+        newProyect:{ 
+        },
+        message:'', 
+        id: false,
+        idProyecto: ''
+    }), 
+    methods:{ 
+        send:async function(){ 
+        this.message = ''; 
+        if (!this.id){
+          try { 
+              var result = await this.$http.post('/api/proyectos', this.newProyect); 
+              let proyect = result.data;       
+              this.id = true;
+              this.idProyecto = proyect.data._id;
+              this.message = `${this.idProyecto} Se creó un nuevo contacto ${proyect.data._id}`; 
+          } catch (error) { 
+              console.log('error', error) 
+              this.message = 'Ocurrió un error' 
+          }
+        }else{
+          await this.$http.put('/api/proyectos/'+this.idProyecto, this.newProyect);
+          //this.message = `${this.idProyecto} actualizo en la base de datos `; 
+          
+        } 
+
+        
+
+        },
+        publicar:async function(){
+          try {
+            this.newProyect.visibilidad = true;
+            await this.$http.put('/api/proyectos/'+this.idProyecto, this.newProyect);
+            this.message = `Ocurrió un error ${proyect.data.duracionEstimada}`
+          } catch (error) { 
+              console.log('error', error) 
+              this.message = 'Ocurrió un error' 
+          }
+        } 
+    } 
 }
 </script>
 

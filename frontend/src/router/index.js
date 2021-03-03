@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -94,10 +95,20 @@ const routes = [
     component: function () {
       return import('../views/viewsNavbar2/profile.vue')
     }
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: function () {
+      return import('../views/Contact.vue')
+    }
   }
+  
 ]
 
 const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes
 })
 

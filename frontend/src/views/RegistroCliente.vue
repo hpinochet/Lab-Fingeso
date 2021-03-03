@@ -6,7 +6,7 @@
                 <v-col id="rectangulo">
                     <v-row id= "fullName">
                         <v-text-field
-                            v-model="fullname"
+                            v-model="newClient.nombreTrabajador"
                             :rules="fullRules"
                             label="Ingrese su nombre completo..."
                             required
@@ -14,7 +14,7 @@
                     </v-row>
                     <v-row id= "empresaName">
                         <v-text-field
-                            v-model="empName"
+                            v-model="newClient.nombreEmpresa"
                             :rules="empresaRules"
                             label="Ingrese nombre de la empresa..."
                             required
@@ -22,7 +22,7 @@
                     </v-row>
                     <v-row id= "rut">
                         <v-text-field type="number"
-                            v-model="rut"
+                            v-model="newClient.rutEmpresa"
                             :rules="rutRules"
                             label="Ingrese rut de la empresa..."
                             required
@@ -30,7 +30,7 @@
                     </v-row>
                     <v-row id= "email">
                         <v-text-field
-                            v-model="email"
+                            v-model="newClient.correoTrabajador"
                             :rules="emailRules"
                             label="Ingrese correo institucional..."
                             required
@@ -38,7 +38,7 @@
                     </v-row>
                     <v-row id= "servicios">
                         <v-text-field
-                            v-model="servicios"
+                            v-model="newClient.rubroEmpresa"
                             :rules="serviciosRules"
                             label="Ingrese breve descripcion de los servicios..."
                             required
@@ -48,7 +48,7 @@
                         <v-text-field
                             :type="show1 ? 'text' : 'password'"
                             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                            v-model="password"
+                            v-model="newClient.contrasena"
                             :rules="passRules"
                             label="Password"
                             @click:append="show1 = !show1"
@@ -61,10 +61,14 @@
                             color = "success"
                             height = "80"
                             width ="400"
-                            @click="submit"
+                            @click="send"
                             >
                             Registrarse.
                         </v-btn>
+                        <code>{{newClient}}</code> 
+                        <p class="message"> 
+                            {{message}} 
+                        </p>
                     </v-row>
                 </v-col>
             </v-col>
@@ -90,8 +94,28 @@ export default {
         passRules: [
             v => v.length >= 8 || 'Min 8 characters',  
             v => !!v || 'Password is required'
-        ]
-    })
+        ],
+        message:'', 
+        newClient:{ 
+        }
+    }), 
+    methods:{ 
+        send:async function(){ 
+        this.message = ''; 
+        if (this.newClient.nombreTrabajador == ''){ 
+            this.message = 'Debes ingresar un nombre' 
+            return false 
+        } 
+        try { 
+            await this.$http.post('/api/clientes', this.newClient); 
+            this.message = `Se creó un nuevo contacto`; 
+            this.newClient = {}; 
+        } catch (error) { 
+            console.log('error', error) 
+            this.message = 'Ocurrió un error' 
+        } 
+        } 
+    } 
 }
 </script>
 

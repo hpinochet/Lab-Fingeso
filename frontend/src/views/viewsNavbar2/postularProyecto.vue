@@ -12,7 +12,7 @@
         </v-col>
         <v-col>
           <v-textarea
-            v-model="responsable"
+            v-model="newPostuleishion.nombreProyecto"
             :rules="resRules"
             solo
             no-resize
@@ -27,7 +27,7 @@
         </v-col>
         <v-col>
           <v-textarea
-            v-model="objetivos"
+            v-model="newPostuleishion.responsable"
             :rules="objRules"
             solo
             no-resize
@@ -42,7 +42,7 @@
         </v-col>
         <v-col>
           <v-textarea
-            v-model="objetivos"
+            v-model="newPostuleishion.objetivos"
             :rules="objRules"
             solo
             no-resize
@@ -57,7 +57,7 @@
         </v-col>
         <v-col>
           <v-textarea
-            v-model="alcances"
+            v-model="newPostuleishion.planTrabajo"
             :rules="alcRules"
             solo
             no-resize
@@ -72,7 +72,7 @@
         </v-col>
         <v-col>
           <v-textarea
-            v-model="alcances"
+            v-model="newPostuleishion.descripcionEmpresa"
             :rules="alcRules"
             solo
             no-resize
@@ -83,11 +83,19 @@
         </v-col>
         <!-- Boton de Postular-->
         <v-col>
+          <v-btn
+              class=" ma-auto "
+              color = "primary"
+              width ="100"
+              @click="send"
+              >
+              Guardar.
+          </v-btn>          
             <v-btn
                 class=" ma-auto ml-5 "
                 color = "success"
                 width ="150"
-                @click="submit"
+                @click="postular"
                 >
                 Postular.
             </v-btn>
@@ -109,7 +117,46 @@ export default {
         objRules: [
           v => !!v || 'Objetivos es requerido.',
           v => (v || '' ).length <= 200 || 'Objetivos debe tener menos de 200 caracteres.'],
-    })
+        newPostuleishion:{ 
+        }, 
+        id: false,
+        idPostulacion: '',
+        message:''
+    }), 
+    methods:{ 
+        send:async function(){ 
+        this.message = ''; 
+        if (!this.id){
+          try { 
+              var result = await this.$http.post('/api/postulaciones', this.newPostuleishion); 
+              let proyect = result.data;       
+              this.id = true;
+              this.idPostulacion = proyect.data._id;
+              this.message = `${this.idPostulacion} Se creó un nuevo contacto ${proyect.data._id}`; 
+          } catch (error) { 
+              console.log('error', error) 
+              this.message = 'Ocurrió un error' 
+          }
+        }else{
+          await this.$http.put('/api/postulaciones'+this.idPostulacion, this.newPostuleishion);
+          //this.message = `${this.idPostulacion} actualizo en la base de datos `; 
+          
+        } 
+
+        
+
+        },
+        postular:async function(){
+          try {
+            this.newPostuleishion.visibilidad = true;
+            await this.$http.put('/api/proyectos/'+this.idPostulacion, this.newPostuleishion);
+            this.message = `Ocurrió un error ${proyect.data.duracionEstimada}`
+          } catch (error) { 
+              console.log('error', error) 
+              this.message = 'Ocurrió un error' 
+          }
+        } 
+    } 
 }
 </script>
 

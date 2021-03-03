@@ -1,9 +1,14 @@
 // FileName: index.js
 
+
+
 // Import express
 let express = require('express'); // Initialize the app
+var cors = require('cors') // Dentro de importaciones 
 
 let app = express(); // Setup server port
+
+app.use(cors()) // Dentro de ejecuciones
 
 var port = process.env.PORT || 8081; // Send message for default URL
 

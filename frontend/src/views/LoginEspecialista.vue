@@ -35,7 +35,7 @@
                     class=" mt-10 ml-15"
                     color = "success"
                     width ="200"
-                    @click="submit"
+                    @click="login"
                     >
                     Iniciar sesión.
                 </v-btn>
@@ -66,8 +66,28 @@
         passRules: [
             v => v.length >= 8 || 'Min 8 characters',  
             v => !!v || 'Password is required'
-        ]
-    })
+        ],
+        message:''
+    }),
+    methods:{
+        login:async function(){
+          try {
+            var result = await this.$http.get('/api/especialistas');
+            let contact = result.data; 
+            var largo = contact.data.length;
+            for (var i = 0; i < largo; i++){
+                if(contact.data[i].correoTrabajador==this.email &&  contact.data[i].contrasena==this.password){
+                    
+                    this.message = `Encontrado`
+                    return window.location.assign('http://localhost:8080/proyectos-disponibles');
+                }
+            }            
+          } catch (error) { 
+              console.log('error', error) 
+              this.message = 'Ocurrió un error' 
+          }
+        }
+    }
   }
 </script>
 
