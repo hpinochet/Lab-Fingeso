@@ -6,7 +6,7 @@
     </v-row>
     <v-row  id="rectangulo1">
         <v-col id="rectangulo2">
-
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, harum qui sed adipisci saepe ratione ab autem eaque, odit nemo alias ut quam assumenda obcaecati amet excepturi praesentium id nulla.
         </v-col>
         <v-col >
           <div class="d-flex align-center">

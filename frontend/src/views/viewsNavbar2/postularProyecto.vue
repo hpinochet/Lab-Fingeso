@@ -85,9 +85,7 @@
                 >
                 Postular.
             </v-btn>
-            <p class="message"> 
-          {{message}} 
-        </p>
+
         </v-col>
       </v-col>
   </v-container>

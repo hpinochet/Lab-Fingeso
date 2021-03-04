@@ -26,7 +26,8 @@
           <!--Segundo texto-->
           <v-row class="mx-auto">
             <v-col id="rectangulo2">
-              Esto es una prueba de descripcion, aqui iria las descripcion del grupo cuando tengamos claramente :D
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellat eius nulla soluta iusto aliquid ducimus, ipsam reprehenderit nostrum, nemo architecto recusandae in, accusamus unde quidem possimus facere voluptas nihil.
+              
             </v-col>
           </v-row>
         </v-col>

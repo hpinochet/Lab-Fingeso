@@ -75,7 +75,7 @@
       </v-col>
       <!--Duracion del proyecto-->
       <v-col id="rectangulo1" background-color="grey lighten-2">
-        <h1>Duración</h1>
+        <h1>Duración(en días)</h1>
       </v-col>
       <v-col id="duracion">
           <v-text-field
@@ -88,7 +88,7 @@
       </v-col>
       <!--Requisitos funcionales del proyecto-->
       <v-col id="rectangulo1" background-color="grey lighten-2">
-        <h1>Requisitos Funcioneles.</h1>
+        <h1>Requisitos Funcionales.</h1>
       </v-col>
       <v-col>
         <v-textarea
@@ -130,9 +130,7 @@
               >
               Publicar.
           </v-btn>
-          <p class="message"> 
-          {{message}} 
-        </p>
+
       </v-col>
     </v-col>
   </v-container>
