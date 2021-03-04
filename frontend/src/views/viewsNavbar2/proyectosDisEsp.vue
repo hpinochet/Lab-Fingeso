@@ -25,7 +25,10 @@
             <v-col></v-col>
             <v-col></v-col>
             <v-col>
-              <a v-bind:href="'proyectoDetails/'+proyecto._id" v-value="proyecto._id">Detalles</a>
+              <a href="#">Detalles>></a>
+            </v-col>
+            <v-col>
+              <a href="/postulacion">Postular>></a>
             </v-col>
           </v-row>
         </v-col>
@@ -45,7 +48,7 @@
 </template>
 
 <script>
-import BarraSupInicial from'@/components/BarraSupLoginC'
+import BarraSupInicial from'@/components/BarraSupLoginE'
 export default {
     components: { BarraSupInicial },
     data () {

@@ -1,5 +1,6 @@
 <template>
 <v-container fluid>
+  <BarraSupInicial />
   <v-row>
     <v-col id="semiC">
       <v-row>
@@ -36,6 +37,14 @@
   </v-row>
 </v-container>
 </template>
+
+<script>
+import BarraSupInicial from'@/components/BarraSupInicial'
+export default {
+    components: { BarraSupInicial },
+  
+}
+</script>
 
 <style >
 

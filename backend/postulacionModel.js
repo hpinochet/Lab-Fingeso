@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var postulacionSchema = mongoose.Schema({
     nombreProyecto: {
         type: String,
-        required: true
+        required: false
     },
     responsable: {
         type: String,

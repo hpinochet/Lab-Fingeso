@@ -1,5 +1,6 @@
 <template>
 <v-form v-model="valid">
+  <BarraSupInicial />
   <v-container fluid>
       <v-col id="rectanguloGrande">
         <!--Aqui se agregaria el nombre del proyecto al que se esta postulando-->
@@ -12,27 +13,12 @@
         </v-col>
         <v-col>
           <v-textarea
-            v-model="newPostuleishion.nombreProyecto"
+            v-model="newPostuleishion.responsable"
             :rules="resRules"
             solo
             no-resize
             name="input-7-4"
             label="Ingrese los responsables..."
-            required
-          ></v-textarea>
-        </v-col>
-        <!--Ingresar los objetivos -->
-        <v-col id="rectangulo1" background-color="grey lighten-2">
-          <h1>Descripcion de empresa</h1>
-        </v-col>
-        <v-col>
-          <v-textarea
-            v-model="newPostuleishion.responsable"
-            :rules="objRules"
-            solo
-            no-resize
-            name="input-7-4"
-            label="Ingrese una breve descripcion de la empresa..."
             required
           ></v-textarea>
         </v-col>
@@ -99,6 +85,9 @@
                 >
                 Postular.
             </v-btn>
+            <p class="message"> 
+          {{message}} 
+        </p>
         </v-col>
       </v-col>
   </v-container>
@@ -106,17 +95,10 @@
 </template>
 
 <script>
+import BarraSupInicial from'@/components/BarraSupLoginE'
 export default {
+    components: { BarraSupInicial },
     data: () => ({
-        valid: false,
-        responsable: '',
-        resRules: [
-          v => !!v || 'Responsables es requerido.',
-          v => (v || '' ).length <= 200 || 'Description debe tener menos de 200 caracteres.'],
-        objetivos:'',
-        objRules: [
-          v => !!v || 'Objetivos es requerido.',
-          v => (v || '' ).length <= 200 || 'Objetivos debe tener menos de 200 caracteres.'],
         newPostuleishion:{ 
         }, 
         id: false,
@@ -132,25 +114,25 @@ export default {
               let proyect = result.data;       
               this.id = true;
               this.idPostulacion = proyect.data._id;
-              this.message = `${this.idPostulacion} Se creó un nuevo contacto ${proyect.data._id}`; 
+              this.message = `Se a guardado la postulacion`; 
           } catch (error) { 
               console.log('error', error) 
               this.message = 'Ocurrió un error' 
           }
         }else{
-          await this.$http.put('/api/postulaciones'+this.idPostulacion, this.newPostuleishion);
+          await this.$http.put('/api/postulaciones/'+this.idPostulacion, this.newPostuleishion);
           //this.message = `${this.idPostulacion} actualizo en la base de datos `; 
-          
+          this.message = `Se a actualizado la postulacion`; 
         } 
 
         
-
         },
         postular:async function(){
           try {
             this.newPostuleishion.visibilidad = true;
-            await this.$http.put('/api/proyectos/'+this.idPostulacion, this.newPostuleishion);
-            this.message = `Ocurrió un error ${proyect.data.duracionEstimada}`
+            await this.$http.put('/api/postulaciones/'+this.idPostulacion, this.newPostuleishion);
+            
+            
           } catch (error) { 
               console.log('error', error) 
               this.message = 'Ocurrió un error' 

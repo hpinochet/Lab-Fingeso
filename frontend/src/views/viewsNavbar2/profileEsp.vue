@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import BarraSupInicial from'@/components/BarraSupLoginC'
+import BarraSupInicial from'@/components/BarraSupLoginE'
 export default {
     components: { BarraSupInicial },
     

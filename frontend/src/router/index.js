@@ -69,6 +69,13 @@ const routes = [
     }
   },
   {
+    path: '/proyectos-disponiblesEsp',
+    name: 'ProyectosDisponiblesEsp',
+    component: function () {
+      return import('../views/viewsNavbar2/proyectosDisEsp.vue')
+    }
+  },
+  {
     path: '/postulacion',
     name: 'postularProyecto',
     component: function () {
@@ -83,10 +90,17 @@ const routes = [
     }
   },
   {
-    path: '/proyectoDetails',
+    path: '/proyectoDetails/:id',
     name: 'detallesProyecto',
     component: function () {
       return import('../views/viewsNavbar2/detallesProyecto.vue')
+    }
+  },
+  {
+    path: '/proyectoDetailsEsp/:id',
+    name: 'detallesProyectoEsp',
+    component: function () {
+      return import('../views/viewsNavbar2/detallesProyectoEsp.vue')
     }
   },
   {
@@ -97,10 +111,10 @@ const routes = [
     }
   },
   {
-    path: '/contact',
-    name: 'Contact',
+    path: '/profileEsp',
+    name: 'perfilEsp',
     component: function () {
-      return import('../views/Contact.vue')
+      return import('../views/viewsNavbar2/profileEsp.vue')
     }
   }
   

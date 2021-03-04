@@ -1,5 +1,6 @@
 <template>
   <v-form v-model="valid">
+      <BarraSupInicial />
     <v-container fluid >
         <v-row>
             <v-col id="inicio">
@@ -60,7 +61,9 @@
 
 <script>
 
-  export default {
+ import BarraSupInicial from'@/components/BarraSupInicial'
+export default {
+    components: { BarraSupInicial },
     data: () => ({
         show1: false,
         valid: false,

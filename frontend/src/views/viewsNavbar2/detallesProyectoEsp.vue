@@ -1,8 +1,7 @@
 
 <template>
-<v-form v-model="valid">
-  <BarraSupInicial />
   <v-container fluid>
+    <BarraSupInicial />
     <v-col id="rectanguloGrande">
       <!--Aqui se agregaria el nombre del proyecto al que se esta postulando-->
       <v-col id="rectangulo1" background-color="grey lighten-2">
@@ -12,10 +11,10 @@
           <v-text-field
               single-line
               solo
-              v-model="newProyect.nombreProyecto"
+              v-model="titulo"
               :rules="titRules"
-              label="Nombre del proyecto..."
-              required
+              label="Supongo que aqui deberia ir el nombre del proyecto que se esta viendo"
+              v-bind:disabled="titulo"
           ></v-text-field>
       </v-col>
       <!--Aqui el usuario agregar los responsables que estaran acargo de este trabajo-->
@@ -24,12 +23,13 @@
       </v-col>
       <v-col>
         <v-textarea
-          v-model="newProyect.responsable"
+          v-model="responsable"
           :rules="resRules"
           solo
           no-resize
           name="input-7-4"
-          label="Ingrese los responsables..."
+          label="Supongo que aqui deberia ir el responsable del proyecto que se esta viendo"
+          v-bind:disabled="responsable"
         ></v-textarea>
       </v-col>
         
@@ -39,12 +39,13 @@
       </v-col>
       <v-col>
         <v-textarea
-          v-model="newProyect.objetivos"
+          v-model="objetivos"
           :rules="objRules"
           solo
           no-resize
           name="input-7-4"
-          label="Ingrese los Objetivos..."
+          label="Supongo que aqui deberia ir los objetivos del proyecto que se esta viendo"
+          v-bind:disabled="objetivos"
         ></v-textarea>
       </v-col>
       <!--Alcances del proyecto-->
@@ -53,25 +54,14 @@
       </v-col>
       <v-col>
         <v-textarea
-          v-model="newProyect.alcance"
+          v-model="alcances"
           :rules="alcRules"
           solo
           no-resize
           name="input-7-4"
-          label="Ingrese los alcances del proyecto..."
+          label="Supongo que aqui deberia ir los alcances del proyecto que se esta viendo"
+          v-bind:disabled="alcances"
         ></v-textarea>
-      </v-col>
-      <!--Criterios de evaluacion-->
-      <v-col id="rectangulo1" background-color="grey lighten-2">
-        <h1>Criterios de evaluacion</h1>
-      </v-col>
-      <v-col id="duracion">
-          <v-text-field
-              single-line
-              solo
-              v-model="newProyect.criteriosEvaluacion"
-              label="Criterios..."
-          ></v-text-field>
       </v-col>
       <!--Duracion del proyecto-->
       <v-col id="rectangulo1" background-color="grey lighten-2">
@@ -79,11 +69,12 @@
       </v-col>
       <v-col id="duracion">
           <v-text-field
-              single-line
-              solo
-              v-model="newProyect.duracionEstimada"
-              :rules="durRules"
-              label="Duración del proyecto..."
+            single-line
+            solo
+            v-model="duracion"
+            :rules="durRules"
+            label="Supongo que aqui deberia ir la duracion del proyecto que se esta viendo"
+            v-bind:disabled="duracion"
           ></v-text-field>
       </v-col>
       <!--Requisitos funcionales del proyecto-->
@@ -92,11 +83,12 @@
       </v-col>
       <v-col>
         <v-textarea
-          v-model="newProyect.requisitosFuncionales"
-          :rules="rfRules"
-          solo
-          name="input-7-4"
-          label="Ingrese los requisitos funcionales del proyecto..."
+            v-model="rf"
+            :rules="rfRules"
+            solo
+            name="input-7-4"
+            label="Supongo que aqui deberia ir los requisitos funcionales del proyecto que se esta viendo"
+            v-bind:disabled="rf"
         ></v-textarea>
       </v-col>
       <!--Requisitos tecnicos del proyecto-->
@@ -105,47 +97,37 @@
       </v-col>
       <v-col>
         <v-textarea
-          v-model="newProyect.requisitosTecnicos"
-          :rules="rtRules"
-          solo
-          name="input-7-4"
-          label="Ingrese los requisitos técnicos del proyecto..."
+            v-model="rt"
+            :rules="rtRules"
+            solo
+            name="input-7-4"
+            label="Supongo que aqui deberia ir los requisitos tecnicos del proyecto que se esta viendo"
+            v-bind:disabled="rt"
         ></v-textarea>
       </v-col>
-      <!-- Botones de Guardar y Publicar-->
+      <!-- Boton de Postular-->
       <v-col>
-          <v-btn
-              class=" ma-auto "
-              color = "primary"
-              width ="100"
-              @click="send"
-              >
-              Guardar.
-          </v-btn>
           <v-btn
               class=" ma-auto ml-5 "
               color = "success"
               width ="150"
-              @click="publicar"
+              @click="submit"
               >
-              Publicar.
+              Postular.
           </v-btn>
-          <p class="message"> 
-          {{message}} 
-        </p>
       </v-col>
     </v-col>
   </v-container>
-</v-form>
 </template>
 
 <script>
-import BarraSupInicial from'@/components/BarraSupLoginC'
+import BarraSupInicial from'@/components/BarraSupLoginE'
 export default {
     components: { BarraSupInicial },
     data: () => ({
         valid: false,
         titulo: '',
+        disabled: 0,
         titRules: [
             v => !!v || 'Nombre del proyecto es requerido.',
             v => (v || '' ).length <= 50 || 'Nombre debe tener menos de 50 caracteres.'
@@ -169,47 +151,8 @@ export default {
         rt:'',
         rtRules: [
           v => !!v || 'Requesitos Técnicos requeridos.',
-          v => (v || '' ).length <= 1000 || 'Requesitos Técnicos debe tener menos de 1000 caracteres.'], 
-        newProyect:{ 
-        },
-        message:'', 
-        id: false,
-        idProyecto: ''
-    }), 
-    methods:{ 
-        send:async function(){ 
-        this.message = ''; 
-        if (!this.id){
-          try { 
-              var result = await this.$http.post('/api/proyectos', this.newProyect); 
-              let proyect = result.data;       
-              this.id = true;
-              this.idProyecto = proyect.data._id;
-              this.message = `Se a Guardado el proyecto`; 
-          } catch (error) { 
-              console.log('error', error) 
-              this.message = 'Ocurrió un error' 
-          }
-        }else{
-          await this.$http.put('/api/proyectos/'+this.idProyecto, this.newProyect);
-          this.message = `Se a actualizado el proyecto`; 
-          
-        } 
-
-        
-
-        },
-        publicar:async function(){
-          try {
-            this.newProyect.visibilidad = true;
-            await this.$http.put('/api/proyectos/'+this.idProyecto, this.newProyect);
-            this.message = `Proyecto publicado`
-          } catch (error) { 
-              console.log('error', error) 
-              this.message = 'Ocurrió un error' 
-          }
-        } 
-    } 
+          v => (v || '' ).length <= 1000 || 'Requesitos Técnicos debe tener menos de 1000 caracteres.']
+    })
 }
 </script>
 

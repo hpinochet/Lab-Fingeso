@@ -1,5 +1,6 @@
 <template>
   <v-form v-model="valid">
+      <BarraSupInicial />
     <v-container fluid >
         <v-row>
             <v-col id="inicio">
@@ -53,7 +54,9 @@
 </template>
 
 <script>
-  export default {
+import BarraSupInicial from'@/components/BarraSupInicial'
+export default {
+    components: { BarraSupInicial },
     data: () => ({
         valid: false,
         show1:false,
@@ -79,7 +82,7 @@
                 if(contact.data[i].correoTrabajador==this.email &&  contact.data[i].contrasena==this.password){
                     
                     this.message = `Encontrado`
-                    return window.location.assign('http://localhost:8080/proyectos-disponibles');
+                    return window.location.assign('http://localhost:8080/proyectos-disponiblesEsp');
                 }
             }            
           } catch (error) { 

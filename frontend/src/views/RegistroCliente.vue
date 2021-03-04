@@ -1,5 +1,6 @@
 <template>
     <v-container fluid>
+        <BarraSupInicial />
         <v-row>
             <v-col>
                 <h2 id="texto1">Registro</h2>
@@ -78,7 +79,10 @@
 </template>
 
 <script>
+
+import BarraSupInicial from'@/components/BarraSupInicial'
 export default {
+    components: { BarraSupInicial },
     data: () => ({
         valid: false,
         rut: '',
