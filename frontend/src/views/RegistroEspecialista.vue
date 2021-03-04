@@ -67,10 +67,7 @@
                             >
                             Registrarse.
                         </v-btn>
-                        <code>{{newSpecialist}}</code> 
-                        <p class="message"> 
-                            {{message}} 
-                        </p>
+                        
                     </v-row>
                 </v-col>
             </v-col>

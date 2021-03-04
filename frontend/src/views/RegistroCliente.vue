@@ -66,10 +66,7 @@
                             >
                             Registrarse.
                         </v-btn>
-                        <code>{{newClient}}</code> 
-                        <p class="message"> 
-                            {{message}} 
-                        </p>
+                        
                     </v-row>
                 </v-col>
             </v-col>
