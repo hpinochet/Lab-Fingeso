@@ -16,10 +16,10 @@
                 
             </v-row>
             <v-row>
-                <v-row id="rectangulo2">Nombre de usuario: AQUI TIENEN QUE TRAER EL NOMBRE</v-row> 
+                <v-row id="rectangulo2">Nombre de usuario</v-row> 
             </v-row>
             <v-row>
-                <v-row id="rectangulo2">Nombre de usuario: AQUI TIENEN QUE TRAER EL NOMBRE EMPRESA</v-row> 
+                <v-row id="rectangulo2">Nombre de usuario</v-row> 
             </v-row>
             <v-row>
                 <v-row id="rectangulo2">RUT</v-row> 

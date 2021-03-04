@@ -24,6 +24,9 @@
       
       <v-spacer></v-spacer>
 
+      <v-btn text>
+        <router-link id="router" to="/">Buscar Proyectos</router-link>
+      </v-btn>
 
       <v-btn text>
         <router-link id="router" to="/about">Mis Proyectos</router-link>

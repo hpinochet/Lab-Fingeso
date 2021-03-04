@@ -25,7 +25,7 @@
             <v-col></v-col>
             <v-col></v-col>
             <v-col>
-              <a v-bind:href="'proyectoDetails/'+proyecto._id" v-value="proyecto._id">Detalles</a>
+              <a v-bind:href="'proyectoDetailsEsp/'+proyecto._id" v-value="proyecto._id">Detalles</a>
             </v-col>
           </v-row>
         </v-col>

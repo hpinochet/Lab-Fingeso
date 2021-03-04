@@ -13,7 +13,7 @@
               solo
               v-model="titulo"
               :rules="titRules"
-              label="Supongo que aqui deberia ir el nombre del proyecto que se esta viendo"
+              v-bind:label="this.proyectos.nombreProyecto"
               v-bind:disabled="titulo"
           ></v-text-field>
       </v-col>
@@ -28,7 +28,7 @@
           solo
           no-resize
           name="input-7-4"
-          label="Supongo que aqui deberia ir el responsable del proyecto que se esta viendo"
+          v-bind:label="this.proyectos.responsable"
           v-bind:disabled="responsable"
         ></v-textarea>
       </v-col>
@@ -44,7 +44,7 @@
           solo
           no-resize
           name="input-7-4"
-          label="Supongo que aqui deberia ir los objetivos del proyecto que se esta viendo"
+          v-bind:label="this.proyectos.objetivos"
           v-bind:disabled="objetivos"
         ></v-textarea>
       </v-col>
@@ -59,7 +59,7 @@
           solo
           no-resize
           name="input-7-4"
-          label="Supongo que aqui deberia ir los alcances del proyecto que se esta viendo"
+          v-bind:label="this.proyectos.alcance"
           v-bind:disabled="alcances"
         ></v-textarea>
       </v-col>
@@ -73,10 +73,24 @@
             solo
             v-model="duracion"
             :rules="durRules"
-            label="Supongo que aqui deberia ir la duracion del proyecto que se esta viendo"
+             v-bind:label="this.proyectos.duracionEstimada"
             v-bind:disabled="duracion"
           ></v-text-field>
       </v-col>
+      <!--Criterios de Evaluacion-->
+      <v-col id="rectangulo1" background-color="grey lighten-2">
+        <h1>Criterios de Evaluacion.</h1>
+      </v-col>
+      <v-col>
+        <v-textarea
+            v-model="rf"
+            :rules="rfRules"
+            solo
+            name="input-7-4"
+            v-bind:label="this.proyectos.criteriosEvaluacion"
+            v-bind:disabled="rf"
+        ></v-textarea>
+      </v-col>          
       <!--Requisitos funcionales del proyecto-->
       <v-col id="rectangulo1" background-color="grey lighten-2">
         <h1>Requisitos Funcioneles.</h1>
@@ -87,7 +101,7 @@
             :rules="rfRules"
             solo
             name="input-7-4"
-            label="Supongo que aqui deberia ir los requisitos funcionales del proyecto que se esta viendo"
+            v-bind:label="this.proyectos.requisitosFuncionales"
             v-bind:disabled="rf"
         ></v-textarea>
       </v-col>
@@ -101,7 +115,7 @@
             :rules="rtRules"
             solo
             name="input-7-4"
-            label="Supongo que aqui deberia ir los requisitos tecnicos del proyecto que se esta viendo"
+            v-bind:label="this.proyectos.requisitosTecnicos"
             v-bind:disabled="rt"
         ></v-textarea>
       </v-col>
@@ -112,8 +126,10 @@
               color = "success"
               width ="150"
               @click="submit"
+              :to="'/postulacion'"
               >
               Postular.
+             
           </v-btn>
       </v-col>
     </v-col>
@@ -125,6 +141,8 @@ import BarraSupInicial from'@/components/BarraSupLoginE'
 export default {
     components: { BarraSupInicial },
     data: () => ({
+        proyectos:{},
+        message:"",
         valid: false,
         titulo: '',
         disabled: 0,
@@ -152,7 +170,25 @@ export default {
         rtRules: [
           v => !!v || 'Requesitos Técnicos requeridos.',
           v => (v || '' ).length <= 1000 || 'Requesitos Técnicos debe tener menos de 1000 caracteres.']
-    })
+    }),
+    created() {
+      this.function();
+    },
+    methods:{
+        async function(){
+          try {
+            this.id = this.$route.params.id;
+            var result = await this.$http.get('/api/proyectos/'+this.$route.params.id);
+            let poyect = result.data; 
+            this.proyectos = poyect.data;
+            this.message = 'funciona'
+           
+          } catch (error) { 
+              console.log('error', error) 
+              this.message = 'Ocurrió un error' 
+          }
+        }
+    }
 }
 </script>
 
