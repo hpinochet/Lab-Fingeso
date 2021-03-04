@@ -68,6 +68,7 @@
       <v-col id="duracion">
           <v-text-field
               single-line
+              :rules="critRules"
               solo
               v-model="newProyect.criteriosEvaluacion"
               label="Criterios..."
@@ -78,7 +79,8 @@
         <h1>Duración(en días)</h1>
       </v-col>
       <v-col id="duracion">
-          <v-text-field
+          <v-text-field 
+              type="number"
               single-line
               solo
               v-model="newProyect.duracionEstimada"
@@ -147,6 +149,14 @@ export default {
         titRules: [
             v => !!v || 'Nombre del proyecto es requerido.',
             v => (v || '' ).length <= 50 || 'Nombre debe tener menos de 50 caracteres.'
+        ],
+        alcRules: [
+            v => !!v || 'Alcances del proyecto es requerido.',
+            v => (v || '' ).length <= 20 || 'Duracion debe tener menos de 20 caracteres.'
+        ],
+        critRules: [
+            v => !!v || 'Criterios del proyecto es requerido.',
+            v => (v || '' ).length <= 20 || 'Duracion debe tener menos de 20 caracteres.'
         ],
         durRules: [
             v => !!v || 'Duracion del proyecto es requerido.',
